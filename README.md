@@ -26,9 +26,7 @@ This project is a web application for tracking and displaying statistics for ran
 ### Installation
 
 1. Clone the repository
-   ```
-   git clone https://github.com/yourusername/among-us-ranked-website.git
-   ```
+
 
 2. Install frontend dependencies
    ```
