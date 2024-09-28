@@ -42,3 +42,4 @@ db.sqlite3-journal
 
 # Media files
 /media/
+frontend/node_modules/
