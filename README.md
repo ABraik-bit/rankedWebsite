@@ -1,21 +1,23 @@
-# Among Us Ranked Website
+# 🚀 Among Us Ranked Website (AU++)
 
-This project is a web application for tracking and displaying statistics for ranked Among Us games. It features a match replay system, player statistics, and a leaderboard.
+Welcome to AU++, the ultimate web application for tracking and displaying statistics for ranked Among Us games! 🎮
 
-## Features
+🌟 **[Check out the live website here!](https://www.aupp.pro/)** 🌟
 
-- Match Replay: View detailed replays of Among Us matches
-- Player Statistics: Analyze individual player performance
-- Leaderboard: Compare players based on various metrics
-- Responsive Design: Optimized for both desktop and mobile viewing
+## 🎯 Features
 
-## Technologies Used
+- 🎬 **Match Replay**: View detailed replays of Among Us matches
+- 📊 **Player Statistics**: Analyze individual player performance
+- 🏆 **Leaderboard**: Compare players based on various metrics
+- 📱 **Responsive Design**: Optimized for both desktop and mobile viewing
 
-- Frontend: React.js, D3.js for visualizations
-- Backend: Django (assumed based on API structure)
-- Styling: CSS with responsive design
+## 🛠️ Technologies Used
 
-## Getting Started
+- 🖥️ **Frontend**: React.js, D3.js for visualizations
+- 🔧 **Backend**: Django
+- 🎨 **Styling**: CSS with responsive design
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -23,10 +25,9 @@ This project is a web application for tracking and displaying statistics for ran
 - npm or yarn
 - Python (for backend)
 
-### Installation
+### 📥 Installation
 
-1. Clone the repository
-
+1. Clone the repository 📂
 
 2. Install frontend dependencies
    ```
@@ -34,7 +35,7 @@ This project is a web application for tracking and displaying statistics for ran
    npm install
    ```
 
-3. Install backend dependencies (assuming Django backend)
+3. Install backend dependencies
    ```
    cd ../backend
    pip install -r requirements.txt
@@ -49,10 +50,16 @@ This project is a web application for tracking and displaying statistics for ran
    python manage.py runserver
    ```
 
-## Contributing
+## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Feel free to submit a Pull Request. Let's make AU++ even better together! 💪
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🌟 Support
+
+If you enjoy using AU++, please consider giving us a star on GitHub! ⭐
+
+Happy gaming and may the best crewmate (or impostor) win! 🚀👨‍🚀👩‍🚀
