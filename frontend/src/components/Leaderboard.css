@@ -1,0 +1,74 @@
+.leaderboard-container {
+    background-image: url('/root/rankedwebsite/rankedwebsite/frontend/public/amonguswallpaper.png'); /* Set correct path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align content to the top */
+}
+
+.leaderboard-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 50% opacity overlay */
+    z-index: 1;
+}
+
+.leaderboard-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1000px; /* Set the maximum width */
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Wrapping div to make the table scrollable and stay centered */
+.table-wrapper {
+    max-height: 1400px; /* Height of the table, adjust as needed */
+    overflow-y: auto;
+    margin: 0 auto; /* Ensure the table is centered */
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover effect for player name */
+.player-name {
+    cursor: pointer;
+    color: #1E90FF;
+    transition: color 0.2s ease;
+}
+
+.player-name:hover {
+    color: #FFD700; /* Gold on hover */
+}
+
+/* Hover effect for row */
+.player-row:hover {
+    background-color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.search-input, .min-matches-input {
+    background-color: #1d1d1d;
+    color: #fff;
+}
+
+.min-matches-input input, .search-input input {
+    color: #fff;
+}
+
+.player-icon {
+    transition: all 0.1s ease-in-out;
+}
