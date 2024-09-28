@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+</head>
+<body>
+    <h1>Leaderboard</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Player Name</th>
+                <th>MMR</th>
+                <th>Crewmate MMR</th>
+                <th>Impostor MMR</th>
+                <th>Total Games Played</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in leaderboard %}
+            <tr>
+                <td>{{ player.Rank }}</td>
+                <td><a href="/player/{{ player.Player Name }}">{{ player.Player Name }}</a></td>
+                <td>{{ player.MMR }}</td>
+                <td>{{ player.Crewmate MMR }}</td>
+                <td>{{ player.Impostor MMR }}</td>
+                <td>{{ player.Total Number Of Games Played }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

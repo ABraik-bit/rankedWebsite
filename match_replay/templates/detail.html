@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Match {{ match.MatchID }} - {{ match.Result }}</h1>
+    <p>Players: {{ match.Players }}</p>
+    <p>Impostors: {{ match.Impostors }}</p>
+    <p>Result: {{ match.Result }} - {{ match.Reason }}</p>
+
+    <h2>Movements</h2>
+    <ul>
+        {% for movement in movements %}
+            <li>
+                {{ movement.Time }} - {{ movement.Player }} moved to {{ movement.Location }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

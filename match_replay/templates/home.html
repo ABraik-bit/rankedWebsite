@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Match Replay</h1>
+    <ul>
+        {% for match in matches %}
+            <li>
+                <a href="{% url 'match_replay_detail' match.MatchID %}">
+                    Match {{ match.MatchID }} - {{ match.GameStarted }} - {{ match.Result }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
