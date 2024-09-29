@@ -77,17 +77,17 @@ const Leaderboard = () => {
 
     const columns = useMemo(() => [
         {
-            Header: 'Rank',
+            Header: '🏆 Rank',
             accessor: 'Rank',
-            Cell: ({ row }) => row.index + 1,  // Dynamic rank based on the sorting
+            Cell: ({ row }) => row.index + 1,
         },
         {
-            Header: '👤 Player Name',
+            Header: '👤 Player',
             accessor: 'Player Name',
             Cell: ({ value }) => (
                 <span
                     className="player-name"
-                    onClick={() => navigate(`/player/${encodeURIComponent(season)}/${encodeURIComponent(value)}`)}
+                    onClick={() => navigate(`/player/${season}/${value}`)}
                 >
                     {value}
                 </span>
@@ -96,32 +96,30 @@ const Leaderboard = () => {
         {
             Header: '🔥 MMR',
             accessor: 'MMR',
+            Cell: ({ value }) => <span className="mmr-overall">{value}</span>,
         },
         {
-            Header: '🛠️ Crewmate MMR',
+            Header: '👨‍🚀 Crew MMR',
             accessor: 'Crewmate MMR',
+            Cell: ({ value }) => <span className="mmr-crewmate">{value}</span>,
         },
         {
-            Header: '🔪 Impostor MMR',
+            Header: '🔪 Imp MMR',
             accessor: 'Impostor MMR',
+            Cell: ({ value }) => <span className="mmr-impostor">{value}</span>,
         },
         {
-            Header: '🎮 Games Played',
+            Header: '🎮 Games',
             accessor: 'Total Number Of Games Played',
-            Cell: ({ value }) => Math.round(value),  // Display as an integer
+            Cell: ({ value }) => Math.round(value),
         },
         {
-            Header: '🗳️ Voting Accuracy (Crewmate games)',
-            accessor: 'Voting Accuracy (Crewmate games)',
-            Cell: ({ value }) => `${(value * 100).toFixed(2)}%`,
-        },
-        {
-            Header: '🏅 Winning Percentage',
+            Header: '🏅 Win %',
             accessor: 'Winning Percentage',
             Cell: ({ row }) => {
                 const gamesWon = row.original["Number Of Games Won"];
                 const gamesPlayed = row.original["Total Number Of Games Played"];
-                return `${((gamesWon / gamesPlayed) * 100).toFixed(2)}%`;
+                return `${((gamesWon / gamesPlayed) * 100).toFixed(1)}%`;
             }
         }
     ], [navigate, season]);

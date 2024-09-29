@@ -68,13 +68,12 @@ const MatchReplay = () => {
             const playerColor = playerIcons.current[Player].attr('data-color');
             const deadBodyIcon = `${DEAD_PLAYER_IMAGE_BASE}${playerColor}_dead.png`;
             
-            const playerGroup = d3.select(`.player-group-${Player}`);
-            playerGroup.select('image')
-                .attr('href', deadBodyIcon)
-                .attr('width', 40)
-                .attr('height', 40);
+            playerIcons.current[Player]
+                .attr('xlink:href', deadBodyIcon)
+                .attr('width', 30)
+                .attr('height', 30);
 
-            playerGroup.select('text').remove();
+            playerNames.current[Player].remove();
             delete playerNames.current[Player];
             
             console.log(`Player ${Player} changed to dead body`);
@@ -306,12 +305,28 @@ const MatchReplay = () => {
         setIsPlaying(!isPlaying);
     };
 
+    const updateSvgViewBox = () => {
+        const svg = d3.select(svgRef.current);
+        const container = svg.node().parentNode;
+        const width = container.clientWidth;
+        const height = width * (600 / 800); // Maintain aspect ratio
+        svg.attr('viewBox', `0 0 800 600`)
+           .attr('width', width)
+           .attr('height', height);
+    };
+
     useEffect(() => {
         if (matchData) {
             renderMap();
             lastEventTimeRef.current = Date.now();
         }
     }, [matchData]);
+
+    useEffect(() => {
+        updateSvgViewBox();
+        window.addEventListener('resize', updateSvgViewBox);
+        return () => window.removeEventListener('resize', updateSvgViewBox);
+    }, []);
 
     return (
         <div className="match-replay-container">

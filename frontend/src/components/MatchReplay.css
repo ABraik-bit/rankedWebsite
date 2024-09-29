@@ -1,52 +1,157 @@
 .match-replay-container {
     text-align: center;
     color: white;
-    background-color: #121212;
+    background-color: #000000; /* Changed to match the main website */
     min-height: 100vh;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Changed from space-between */
 }
 
 .map-container {
     margin: 0 auto;
     position: relative;
-    width: 800px;
-    height: 600px;
+    width: 800px; /* Adjusted to match the SVG viewBox */
+    height: 600px; /* Adjusted to match the SVG viewBox */
+    margin-bottom: 20px; /* Added to reduce space */
 }
 
 .controls {
+    width: 800px; /* Match the width of the map container */
+    margin: 0 auto; /* Center the controls */
     margin-top: 20px;
+}
+
+.video-controls {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.controls button {
-    margin: 0 10px;
+.video-controls button {
+    margin: 0 5px;
     padding: 10px;
-    font-size: 16px;
-}
-
-input[type="range"] {
-    width: 50%;
-}
-
-.event-popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #1e2a3a;
     color: white;
-    padding: 10px 20px;
+    border: none;
     border-radius: 5px;
-    font-size: 18px;
-    z-index: 1000;
+    cursor: pointer;
+}
+
+.video-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .progress-bar {
-    margin-top: 20px;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 800px; /* Match the width of the map container */
+    margin: 10px auto; /* Center the progress bar */
 }
 
-.progress-bar input[type="range"] {
-    width: 80%;
+input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #1e2a3a;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #5cdbff;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #5cdbff;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.match-selector {
+    margin-bottom: 20px;
+}
+
+.match-selector input {
+    margin-right: 10px;
+    padding: 5px;
+    background-color: #1e2a3a;
+    color: white;
+    border: 1px solid #5cdbff;
+    border-radius: 5px;
+}
+
+.match-selector button {
+    padding: 5px 10px;
+    background-color: #5cdbff;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .match-replay-container {
+        padding: 10px;
+    }
+
+    .map-container {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3; /* Maintain aspect ratio */
+    }
+
+    .controls {
+        width: 100%;
+    }
+
+    .video-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .video-controls button {
+        margin: 5px;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .progress-bar {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .match-selector {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .match-selector input {
+        margin: 5px 0;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .match-selector button {
+        margin-top: 5px;
+        width: 100%;
+        max-width: 300px;
+    }
 }

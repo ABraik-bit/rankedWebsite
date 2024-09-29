@@ -1,135 +1,105 @@
 .player-stats-container {
-    background-image: url('/root/rankedwebsite/rankedwebsite/frontend/public/amonguswallpaper.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
+    background-color: #000000;
     min-height: 100vh;
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.player-stats-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1;
-}
-
-.player-stats-content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 1200px;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     color: #ffffff;
 }
 
-h2, h3, h4 {
-    color: #ffd700;
+.player-stats-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.player-stats-content h2, .player-stats-content h3 {
+    color: #5cdbff;
     margin-bottom: 20px;
-    text-align: center;
 }
 
 .chart-container {
-    width: 100%;
-    height: 400px;
-    margin-bottom: 30px;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
+    background-color: #1e2a3a;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
 }
 
-.mmr-chart {
-    height: 500px;
+.chart-container.mmr-chart {
+    height: 400px;
 }
 
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    margin-bottom: 30px;
 }
 
 .stat-item {
-    background-color: rgba(58, 58, 58, 0.7);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+    background-color: #1e2a3a;
+    border-radius: 8px;
+    padding: 15px;
+    height: 400px; /* Increased to accommodate charts better */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.stat-item > div {
+    width: 100%;
+    height: 100%;
+    max-height: 350px; /* Ensure charts don't overflow */
 }
 
 .general-stats {
-    background-color: rgba(42, 42, 42, 0.7);
+    background-color: #1e2a3a;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
 }
 
 .stats-columns {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 .stats-column {
-    flex: 1;
-    min-width: 200px;
-    margin: 0 10px;
+    flex-basis: calc(33.33% - 20px);
+    background-color: #1e2a3a;
+    border-radius: 8px;
+    padding: 15px;
 }
 
 .stat-label {
     font-weight: bold;
-    color: #b0b0b0;
+    color: #5cdbff;
 }
 
 .stat-value {
-    display: inline-block;
-    font-size: 1.1em;
-    color: #ffd700;
-    margin-left: 5px;
-}
-
-.loading, .error {
-    text-align: center;
-    font-size: 1.2em;
-    margin-top: 20px;
     color: #ffffff;
 }
 
-.error {
-    color: #ff6b6b;
-}
-
 .overall-mmr {
-    color: rgb(75, 192, 192);
+    color: #5cdbff;
+    font-weight: bold;
 }
 
-.impostor-mmr {
-    color: rgb(255, 99, 132);
+.crewmate-stats .stat-value, .crewmate-mmr {
+    color: #4CAF50;
 }
 
-.crewmate-mmr {
-    color: rgb(54, 162, 235);
+.impostor-stats .stat-value, .impostor-mmr {
+    color: #FF5252;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .stats-grid {
         grid-template-columns: 1fr;
     }
-
+    
     .stats-columns {
         flex-direction: column;
     }
-
+    
     .stats-column {
-        margin: 10px 0;
+        margin-bottom: 20px;
     }
 }
