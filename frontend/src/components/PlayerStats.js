@@ -158,9 +158,13 @@ const PlayerStats = () => {
         };
     }, [playerStats]);
 
-    const mmrChartOptions = {
+    const commonChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
+    };
+
+    const mmrChartOptions = {
+        ...commonChartOptions,
         scales: {
             x: {
                 ticks: {
@@ -180,9 +184,30 @@ const PlayerStats = () => {
         }
     };
 
+    const radarChartOptions = {
+        ...commonChartOptions,
+        scales: {
+            r: {
+                angleLines: {
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 1
+            }
+        }
+    };
+
+    const polarAreaOptions = {
+        ...commonChartOptions,
+        plugins: {
+            legend: {
+                position: 'right',
+            }
+        },
+    };
+
     const winRateChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
+        ...commonChartOptions,
         scales: {
             y: {
                 beginAtZero: true,
@@ -205,43 +230,16 @@ const PlayerStats = () => {
     };
 
     const gameCountChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
+        ...commonChartOptions,
         plugins: {
             legend: {
-                position: 'right',
+                position: 'top',
             },
             title: {
                 display: true,
                 text: 'Game Count by Role'
             }
         },
-        layout: {
-            padding: {
-                left: 10,
-                right: 10,
-                top: 0,
-                bottom: 0
-            }
-        }
-    };
-
-    const polarAreaOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'right',
-            }
-        },
-        layout: {
-            padding: {
-                left: 10,
-                right: 10,
-                top: 0,
-                bottom: 0
-            }
-        }
     };
 
     if (error) {
@@ -262,23 +260,31 @@ const PlayerStats = () => {
                     </div>
                 )}
                 <div className="stats-grid">
-                    <div className="stat-item">
+                    <div className="stat-item role-performance">
                         <h3>Role Performance</h3>
-                        <Radar data={radarChartData} />
+                        <div className="chart-wrapper">
+                            <Radar data={radarChartData} options={radarChartOptions} />
+                        </div>
                     </div>
-                    <div className="stat-item">
+                    <div className="stat-item game-distribution">
                         <h3>Game Distribution</h3>
-                        <PolarArea data={polarAreaData} options={polarAreaOptions} />
+                        <div className="chart-wrapper">
+                            <PolarArea data={polarAreaData} options={polarAreaOptions} />
+                        </div>
                     </div>
                     <div className="stat-item">
                         <h3>Win Rates</h3>
-                        <Bar data={winRateChartData} options={winRateChartOptions} />
+                        <div className="chart-wrapper">
+                            <Bar data={winRateChartData} options={winRateChartOptions} />
+                        </div>
                     </div>
                     <div className="stat-item">
                         <h3>Game Count by Role</h3>
-                        {gameCountChartData && (
-                            <Bar data={gameCountChartData} options={gameCountChartOptions} />
-                        )}
+                        <div className="chart-wrapper">
+                            {gameCountChartData && (
+                                <Bar data={gameCountChartData} options={gameCountChartOptions} />
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className="general-stats">
@@ -313,6 +319,45 @@ const PlayerStats = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="top-teammates">
+                <h3>Top Teammates</h3>
+                {playerStats.top_teammates ? (
+                    <div className="teammates-grid">
+                        <div>
+                            <h4>Overall</h4>
+                            <ul>
+                                {playerStats.top_teammates.overall && playerStats.top_teammates.overall.map(([name, count]) => (
+                                    <li key={name}>
+                                        <a href={`/player/${season}/${name}`}>{name}</a>: {count} games
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>As Crewmate</h4>
+                            <ul>
+                                {playerStats.top_teammates.crewmate && playerStats.top_teammates.crewmate.map(([name, count]) => (
+                                    <li key={name}>
+                                        <a href={`/player/${season}/${name}`}>{name}</a>: {count} games
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>As Impostor</h4>
+                            <ul>
+                                {playerStats.top_teammates.impostor && playerStats.top_teammates.impostor.map(([name, count]) => (
+                                    <li key={name}>
+                                        <a href={`/player/${season}/${name}`}>{name}</a>: {count} games
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                ) : (
+                    <p>No top teammates data available</p>
+                )}
             </div>
         </div>
     );

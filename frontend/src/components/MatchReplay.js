@@ -124,35 +124,30 @@ const MatchReplay = () => {
 
         if (!playerIcons.current[Player]) {
             console.log(`Creating player icon for ${Player}`);
-            playerIcons.current[Player] = svg.append('image')
+            const group = svg.append('g')
+                .attr('class', 'player-group')
+                .attr('transform', `translate(${mapXToCanvas(x)}, ${mapYToCanvas(y)})`);
+
+            playerIcons.current[Player] = group.append('image')
                 .attr('xlink:href', playerIcon)
                 .attr('width', 20)
                 .attr('height', 20)
-                .attr('x', mapXToCanvas(x))
-                .attr('y', mapYToCanvas(y))
                 .attr('class', 'player-icon')
                 .attr('data-color', playerColor);
 
-            playerNames.current[Player] = svg.append('text')
-                .attr('x', mapXToCanvas(x) + 10)
-                .attr('y', mapYToCanvas(y) + 30)
+            playerNames.current[Player] = group.append('text')
+                .attr('x', 10)
+                .attr('y', 30)
                 .attr('fill', playerColor)
                 .attr('font-size', '12px')
                 .attr('text-anchor', 'middle')
                 .text(Player);
         } else {
             console.log(`Updating position for player ${Player}`);
-            playerIcons.current[Player]
+            d3.select(playerIcons.current[Player].node().parentNode)
                 .transition()
                 .duration(playSpeed - 20)
-                .attr('x', mapXToCanvas(x))
-                .attr('y', mapYToCanvas(y));
-
-            playerNames.current[Player]
-                .transition()
-                .duration(playSpeed - 20)
-                .attr('x', mapXToCanvas(x) + 10)
-                .attr('y', mapYToCanvas(y) + 30);
+                .attr('transform', `translate(${mapXToCanvas(x)}, ${mapYToCanvas(y)})`);
         }
     };
 
@@ -185,6 +180,19 @@ const MatchReplay = () => {
     const handleSpeedChange = (speed) => {
         setPlaybackSpeed(speed);
         setPlaySpeed(100 / speed);
+        
+        // Adjust the current time to maintain position in playback
+        if (lastEventTimeRef.current) {
+            const currentTime = Date.now();
+            const timeDiff = currentTime - lastEventTimeRef.current;
+            lastEventTimeRef.current = currentTime - (timeDiff / speed);
+        }
+        
+        // If currently playing, restart the animation with new speed
+        if (isPlaying) {
+            cancelAnimationFrame(playAnimationRef.current);
+            playAnimationRef.current = requestAnimationFrame(playMatch);
+        }
     };
 
     const displayEventIcon = (event, x, y) => {
@@ -237,7 +245,7 @@ const MatchReplay = () => {
 
         const currentEvent = movements[eventIndex];
         const currentTime = Date.now();
-        const timeSinceLastEvent = currentTime - lastEventTimeRef.current;
+        const timeSinceLastEvent = (currentTime - lastEventTimeRef.current) * playbackSpeed;
 
         if (timeSinceLastEvent < (currentEvent.TimeSinceStart - (movements[eventIndex - 1]?.TimeSinceStart || 0))) {
             playAnimationRef.current = requestAnimationFrame(playMatch);
@@ -311,8 +319,9 @@ const MatchReplay = () => {
         const width = container.clientWidth;
         const height = width * (600 / 800); // Maintain aspect ratio
         svg.attr('viewBox', `0 0 800 600`)
-           .attr('width', width)
-           .attr('height', height);
+           .attr('width', '100%')
+           .attr('height', '100%');
+        container.style.height = `${height}px`;
     };
 
     useEffect(() => {
@@ -333,7 +342,6 @@ const MatchReplay = () => {
             <h1>Match Replay</h1>
 
             <form onSubmit={handleMatchSubmit} className="match-selector">
-                <label htmlFor="matchId">Enter Match ID:</label>
                 <input
                     type="number"
                     id="matchId"
@@ -346,7 +354,7 @@ const MatchReplay = () => {
             </form>
 
             <div className="map-container">
-                <svg ref={svgRef} width="800" height="600" />
+                <svg ref={svgRef} />
             </div>
 
             <div className="video-controls">

@@ -84,42 +84,55 @@ const Leaderboard = () => {
         {
             Header: '👤 Player',
             accessor: 'Player Name',
-            Cell: ({ value }) => (
-                <span
-                    className="player-name"
-                    onClick={() => navigate(`/player/${season}/${value}`)}
-                >
-                    {value}
-                </span>
+            Cell: ({ row }) => (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img 
+                        src={`/api/player-icon/${row.original['Player Discord']}/`}
+                        alt={row.original['Player Name']}
+                        style={{ width: 30, height: 30, marginRight: 10, borderRadius: '50%' }}
+                        onError={(e) => { e.target.onerror = null; e.target.src = '/aupp.ico' }}
+                    />
+                    <span
+                        className="player-name"
+                        onClick={() => navigate(`/player/${season}/${row.original['Player Name']}`)}
+                    >
+                        {row.original['Player Name']}
+                    </span>
+                </div>
             ),
         },
         {
             Header: '🔥 MMR',
             accessor: 'MMR',
-            Cell: ({ value }) => <span className="mmr-overall">{value}</span>,
+            Cell: ({ value }) => <span style={{ color: '#5cdbff' }}>{value}</span>,
         },
         {
-            Header: '👨‍🚀 Crew MMR',
+            Header: '🛠️ Crewmate MMR',
             accessor: 'Crewmate MMR',
-            Cell: ({ value }) => <span className="mmr-crewmate">{value}</span>,
+            Cell: ({ value }) => <span style={{ color: '#00ff00' }}>{value}</span>,
         },
         {
-            Header: '🔪 Imp MMR',
+            Header: '🔪 Impostor MMR',
             accessor: 'Impostor MMR',
-            Cell: ({ value }) => <span className="mmr-impostor">{value}</span>,
+            Cell: ({ value }) => <span style={{ color: '#ff0000' }}>{value}</span>,
         },
         {
-            Header: '🎮 Games',
+            Header: '🎮 Games Played',
             accessor: 'Total Number Of Games Played',
-            Cell: ({ value }) => Math.round(value),
+            Cell: ({ value }) => Math.round(value),  // Display as an integer
         },
         {
-            Header: '🏅 Win %',
+            Header: '🗳️ Voting Accuracy (Crewmate games)',
+            accessor: 'Voting Accuracy (Crewmate games)',
+            Cell: ({ value }) => `${(value * 100).toFixed(2)}%`,
+        },
+        {
+            Header: '🏅 Winning Percentage',
             accessor: 'Winning Percentage',
             Cell: ({ row }) => {
                 const gamesWon = row.original["Number Of Games Won"];
                 const gamesPlayed = row.original["Total Number Of Games Played"];
-                return `${((gamesWon / gamesPlayed) * 100).toFixed(1)}%`;
+                return `${((gamesWon / gamesPlayed) * 100).toFixed(2)}%`;
             }
         }
     ], [navigate, season]);
